@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+{{-- <!DOCTYPE html>
 <html lang="{{ str_replace('_', '_', app()->getLocale()) }}">
 <head>
     <meta charset="UTF-8">
@@ -16,4 +16,25 @@
         <tr><th align="left">Database</th><td>{{ $namaDatabase }}</td></tr>
     </table>
 </body>
-</html>
+</html> --}}
+@extends('layouts.app')
+
+@section('title', 'Beranda')
+
+@section('content')
+    <h1 class="mb-3">SIAKAD - <3202416024></h1>
+
+    <p>
+        Konfigurasi berhasil.
+        Hari ini {{ now()->translatedFormat('l, d F Y H:i') }}.
+    </p>
+
+    <div class="card">
+        <div class="card-body">
+            <p>Laravel: {{ app()->version() }}</p>
+            <p>PHP: {{ PHP_VERSION }}</p>
+            <p>MySQL: 8.0.30</p>
+            <p>Database: {{ config('database.connections.mysql.database') }}</p>
+        </div>
+    </div>
+@endsection

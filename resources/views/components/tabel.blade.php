@@ -28,6 +28,10 @@
                                 <span class="badge text-bg-{{ $warna }}">
                                     {{ $item[$kunci] }}
                                 </span>
+                            @elseif ($kunci === 'nim' && request()->routeIs('mahasiswa.index'))
+                                <a href="{{ route('mahasiswa.show', $item['nim']) }}">
+                                    {{ $item[$kunci] }}
+                                </a>    
                             @else
                                 {{ $item[$kunci] }}
                             @endif
