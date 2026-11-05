@@ -45,7 +45,7 @@
                 </x-sidebar-link>
             </ul>
 
-            @if (Auth::user()->role === 'admin')
+            @if (Auth::user()?->role === 'admin')
                 <small class="text-uppercase text-body-secondary fw-semibold mt-4 mb-2">
                     Administrasi
                 </small>

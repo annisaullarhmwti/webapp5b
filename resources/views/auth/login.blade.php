@@ -24,8 +24,16 @@
                 </div>
 
                 <div class="mb-3">
-                    <x-form-input label="Kata Sandi" name="password" type="password"
-                                autocomplete="current-password" required />
+                    <label for="password" class="form-label">Kata Sandi</label>
+                    <div class="input-group">
+                        <input type="password" id="password" name="password"
+                            class="form-control" autocomplete="current-password" required>
+                        <button type="button" class="btn btn-outline-secondary"
+                            id="togglePassword">Lihat</button>
+                    </div>
+                    @error('password')
+                        <div class="text-danger small mt-1">{{ $message }}</div>
+                    @enderror
                 </div>
 
                 <div class="form-check mb-3">
@@ -39,3 +47,22 @@
         </div>
     </div>
 @endsection
+
+@push('scripts')
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const passwordInput = document.getElementById('password');
+            const togglePassword = document.getElementById('togglePassword');
+
+            togglePassword.addEventListener('click', function () {
+                if (passwordInput.type === 'password') {
+                    passwordInput.type = 'text';
+                    togglePassword.textContent = 'Sembunyikan';
+                } else {
+                    passwordInput.type = 'password';
+                    togglePassword.textContent = 'Lihat';
+                }
+            });
+        });
+    </script>
+@endpush

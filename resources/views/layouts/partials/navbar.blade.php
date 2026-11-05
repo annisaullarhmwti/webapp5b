@@ -20,13 +20,13 @@
             <button class="btn btn-primary dropdown-toggle" type="button"
                     data-bs-toggle="dropdown" aria-expanded="false">
                 <i class="bi bi-person-circle"></i>
-                <span class="d-none d-sm-inline">{{ Auth::user()->name }}</span>
+                <span class="d-none d-sm-inline">{{ Auth::user()?->name ?? 'Pengguna' }}</span>
             </button>
             <ul class="dropdown-menu dropdown-menu-end">
                 <li>
                     <span class="dropdown-item-text small">
-                        {{ Auth::user()->email }}
-                        <span class="badge text-bg-secondary ms-1">{{ Auth::user()->role }}</span>
+                        {{ Auth::user()?->email ?? '-' }}
+                        <span class="badge text-bg-secondary ms-1">{{ Auth::user()?->role ?? '-' }}</span>
                     </span>
                 </li>
                 <li><hr class="dropdown-divider"></li>
