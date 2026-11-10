@@ -34,19 +34,53 @@ Route::middleware('guest')->group(function () {
         ->name('dashboard');
 
     // Data mahasiswa
-    Route::get('/mahasiswa', [MahasiswaController::class, 'index'])
-        ->name('mahasiswa.index');
+    // 1. Endpoint JSON DataTables
+    Route::get('/mahasiswa/data', [MahasiswaController::class, 'data'])
+        ->name('mahasiswa.data');
 
-    Route::get('/mahasiswa/{nim}', [MahasiswaController::class, 'show'])
-        ->name('mahasiswa.show');
+    // 2. Tambah, ubah, dan hapus: khusus admin
+    Route::middleware('role:admin')->group(function () {
+        Route::resource('mahasiswa', MahasiswaController::class)
+            ->except(['index', 'show']);
+    });
 
-    // Data mata kuliah
-    Route::get('/mata-kuliah', [MataKuliahController::class, 'index'])
-        ->name('matakuliah.index');
+    // 3. Daftar dan detail: semua pengguna yang sudah login
+    Route::resource('mahasiswa', MahasiswaController::class)
+        ->only(['index', 'show']);
+
+    // Data Mata Kuliah
+    // 1. Endpoint JSON DataTables
+    Route::get('/mata-kuliah/data', [MataKuliahController::class, 'data'])
+        ->name('matakuliah.data');
+
+    // 2. Tambah, ubah, dan hapus: khusus admin
+    Route::middleware('role:admin')->group(function () {
+        Route::resource('mata-kuliah', MataKuliahController::class)
+            ->except(['index', 'show'])
+            ->parameters(['mata-kuliah' => 'mata_kuliah'])
+            ->names('matakuliah');
+    });
+
+    // 3. Daftar dan detail: semua pengguna yang sudah login
+    Route::resource('mata-kuliah', MataKuliahController::class)
+        ->only(['index', 'show'])
+        ->parameters(['mata-kuliah' => 'mata_kuliah'])
+        ->names('matakuliah');
 
     // Data KRS
-    Route::get('/krs', [KrsController::class, 'index'])
-        ->name('krs.index');
+    // 1. Endpoint JSON DataTables
+    Route::get('/krs/data', [KrsController::class, 'data'])
+        ->name('krs.data');
+
+    // 2. Tambah, ubah, dan hapus: khusus admin
+    Route::middleware('role:admin')->group(function () {
+        Route::resource('krs', KrsController::class)
+            ->except(['index', 'show']);
+    });
+
+    // 3. Daftar dan detail: semua pengguna yang sudah login
+    Route::resource('krs', KrsController::class)
+        ->only(['index', 'show']);
 
     // Halaman beranda
     Route::get('/beranda', [BerandaController::class, 'index'])

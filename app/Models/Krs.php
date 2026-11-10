@@ -18,7 +18,7 @@ class Krs extends Model
         'status',
     ];
 
-    public function mahasiwa(): BelongsTo
+    public function mahasiswa(): BelongsTo
     {
         return $this->belongsTo(Mahasiswa::class, 'mahasiswa_id');
     }

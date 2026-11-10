@@ -1,35 +1,42 @@
-<form action="#" method="post">
-    @csrf
-    <div class="row g-3">
-        <div class="col-md-4">
-            <x-form-input label="NIM" name="nim" />
-        </div>
-        <div class="col-md-8">
-            <x-form-input label="Nama Lengkap" name="nama" />
-        </div>
-        <div class="col-md-6">
-            <x-form-input label="Email" name="email" type="email" />
-        </div>
-        <div class="col-md-3">
-            <x-form-input label="Angkatan" name="angkatan" type="number" />
-        </div>
-        <div class="col-md-3">
-            <label for="status" class="form-label">Status</label>
-            <select id="status" name="status" class="form-select">
-                <option>Aktif</option>
-                <option>Cuti</option>
-                <option>Lulus</option>
-            </select>
-        </div>
-        <div class="col-12">
-            <label for="alamat" class="form-label">Alamat</label>
-            <textarea id="alamat" name="alamat" rows="2"
-                      class="form-control"></textarea>
-        </div>
+<div class="row g-3">
+    <div class="col-md-4">
+        <x-form-input label="NIM" name="nim"
+            :value="old('nim', $mahasiswa->nim)" />
     </div>
 
-    <div class="mt-3 d-flex gap-2">
-        <button type="button" class="btn btn-primary">Simpan</button>
-        <button type="reset" class="btn btn-outline-secondary">Reset</button>
+    <div class="col-md-8">
+        <x-form-input label="Nama Lengkap" name="nama"
+            :value="old('nama', $mahasiswa->nama)" />
     </div>
-</form>
+
+    <div class="col-md-6">
+        <label for="jenis_kelamin" class="form-label">Jenis Kelamin</label>
+        <select id="jenis_kelamin" name="jenis_kelamin" class="form-select" required>
+            <option value="">-- Pilih Jenis Kelamin --</option>
+            <option value="L" @selected(old('jenis_kelamin', $mahasiswa->jenis_kelamin) === 'L')>
+                Laki-laki
+            </option>
+            <option value="P" @selected(old('jenis_kelamin', $mahasiswa->jenis_kelamin) === 'P')>
+                Perempuan
+            </option>
+        </select>
+        @error('jenis_kelamin')
+            <div class="text-danger small">{{ $message }}</div>
+        @enderror
+    </div>
+
+    <div class="col-md-6">
+        <x-form-input label="Email" name="email" type="email"
+            :value="old('email', $mahasiswa->email)" />
+    </div>
+
+    <div class="col-md-4">
+        <x-form-input label="Angkatan" name="angkatan" type="number"
+            :value="old('angkatan', $mahasiswa->angkatan)" />
+    </div>
+
+    <div class="col-md-8">
+        <x-form-input label="Program Studi" name="program_studi"
+            :value="old('program_studi', $mahasiswa->program_studi)" />
+    </div>
+</div>
